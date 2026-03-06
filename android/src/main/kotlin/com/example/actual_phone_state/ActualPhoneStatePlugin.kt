@@ -13,10 +13,10 @@ import io.flutter.plugin.common.MethodChannel
 class ActualPhoneStatePlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
     private lateinit var channel: MethodChannel
-    private lateinit var applicationContext: Context
+    private lateinit var context: Context
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        applicationContext = binding.applicationContext
+        context = binding.applicationContext
         channel = MethodChannel(binding.binaryMessenger, "actual_phone_state")
         channel.setMethodCallHandler(this)
     }
@@ -27,43 +27,43 @@ class ActualPhoneStatePlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
-            "isCallActive" -> result.success(isCallActiveOrNull())
+            "getPhoneState" -> result.success(getPhoneState())
             else -> result.notImplemented()
         }
     }
 
-    private fun isCallActiveOrNull(): Boolean? {
+    private fun getPhoneState(): String {
         val permissionGranted = ContextCompat.checkSelfPermission(
-            applicationContext,
+            context,
             Manifest.permission.READ_PHONE_STATE
         ) == PackageManager.PERMISSION_GRANTED
 
         if (!permissionGranted) {
-            return null
+            return "unknown"
         }
 
         try {
             val telecomManager =
-                applicationContext.getSystemService(Context.TELECOM_SERVICE) as TelecomManager
-            return telecomManager.isInCall
+                context.getSystemService(Context.TELECOM_SERVICE) as TelecomManager
+
+            if (telecomManager.isInCall) {
+                return "callActive"
+            }
         } catch (_: Exception) {
         }
 
         return try {
             val telephonyManager =
-                applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
 
             when (telephonyManager.callState) {
                 TelephonyManager.CALL_STATE_RINGING,
-                TelephonyManager.CALL_STATE_OFFHOOK -> true
-
-                TelephonyManager.CALL_STATE_IDLE -> false
-                else -> null
+                TelephonyManager.CALL_STATE_OFFHOOK -> "callActive"
+                TelephonyManager.CALL_STATE_IDLE -> "noCall"
+                else -> "unknown"
             }
-        } catch (_: SecurityException) {
-            null
         } catch (_: Exception) {
-            null
+            "unknown"
         }
     }
 }

@@ -1,9 +1,9 @@
 name: actual_phone_state
 description: Flutter plugin to get the current phone call state on Android and iOS.
 version: 0.0.1
-homepage: https://github.com/yourname/actual_phone_state
-repository: https://github.com/yourname/actual_phone_state
-issue_tracker: https://github.com/yourname/actual_phone_state/issues
+homepage: https://github.com/patratiip/actual_phone_state
+repository: https://github.com/patratiip/actual_phone_state
+issue_tracker: https://github.com/patratiip/actual_phone_state/issues
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -12,7 +12,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
   flutter_test:
