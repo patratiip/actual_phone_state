@@ -29,7 +29,7 @@ Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  actual_phone_state: ^0.0.1
+  actual_phone_state: ^1.0.0
 ```
 
 Then run:
@@ -185,16 +185,3 @@ See the `/example` directory for a complete working example.
 | Windows  | ❌        |
 | Linux    | ❌        |
 
----
-
-# Contributing
-
-Contributions are welcome.
-
-If you find a bug or have a feature request, please open an issue or submit a pull request.
-
----
-
-# License
-
-MIT License

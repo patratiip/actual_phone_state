@@ -6,17 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
-## 0.0.1
-
-Initial release of the **actual_phone_state** plugin.
+## 1.0.0
 
 ### Added
 
-- Android support using `TelecomManager` with `TelephonyManager` fallback
-- iOS support using `CXCallObserver` from CallKit
-- `ActualPhoneState.getPhoneState()` API
-- Enum-based state response:
+- Initial stable release of the `actual_phone_state` plugin
+- Android implementation using `TelecomManager` with `TelephonyManager` fallback
+- iOS implementation using `CXCallObserver`
+- Enum-based API for representing the phone call state:
   - `ActualPhoneStateStatus.callActive`
   - `ActualPhoneStateStatus.noCall`
   - `ActualPhoneStateStatus.unknown`
-- Basic example application
+- Public API method:
+  - `ActualPhoneState.getPhoneState()`
+- Example application demonstrating plugin usage
